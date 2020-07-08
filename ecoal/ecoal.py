@@ -72,7 +72,7 @@ def process_day_data(day_data):
         
     return day_data
 
-def download_day_data(day=None, month=None, year=None, user=USER, password=PASSWORD, ip=IP):
+def download_day_data(day=None, month=None, year=None, user=USER, password=PASSWORD, ip=IP, dir=None):
     response = requests.get(
         get_day_url(day, month, year, ip), 
         auth=HTTPBasicAuth(user, password), 
@@ -80,4 +80,15 @@ def download_day_data(day=None, month=None, year=None, user=USER, password=PASSW
     if response.status_code == 404:
         return None
     response.raise_for_status()
-    return process_day_data(response.content)
+    day_data = process_day_data(response.content)
+    if dir:
+        if year == None: year = time.localtime().tm_year
+        if month == None: month = time.localtime().tm_mon
+        if day == None: day = time.localtime().tm_mday
+        try:
+            day_data.to_csv(dir + str(year) + "-" + str(month).zfill(2) + "-" + str(day).zfill(2) + ".csv", 
+                sep=";", index=False)
+        except Exception as e:
+            print(e)
+        
+    
