@@ -1,4 +1,4 @@
-# eCoal real-time data downloader
+# eSterownik data downloader
 A small piece of software which allows you to automatically download data from boilers equipped with **eSterownik** manufacturer's controller. It's an unofficial tool written for home purposes. The data is downloaded via local network, which eCoal controller is connected to.
 
 Tested only on **eCoal-B V3.5**.
